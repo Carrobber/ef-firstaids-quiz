@@ -1,0 +1,202 @@
+<!-- ROSCO DE PRIMEROS AUXILIOS · 4º ESO · pegar en la vista HTML de la entrada de Blogger -->
+<div id="pf">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap');
+#pf{--bg:#0d1633;--bg2:#1b1f4f;--red:#ff3b57;--grn:#1fdc9a;--cy:#4cc9ff;--yl:#ffd23f;--tx:#eef2ff;font-family:'Sora',system-ui,sans-serif;color:var(--tx);max-width:980px;margin:20px auto;padding:22px;border-radius:28px;background:radial-gradient(circle at 15% 0%,#2b2f7a 0,transparent 45%),radial-gradient(circle at 90% 100%,#5b1646 0,transparent 40%),var(--bg);box-shadow:0 20px 60px rgba(8,10,40,.45);box-sizing:border-box;line-height:1.45}
+#pf *{box-sizing:border-box}
+#pf h2{margin:0 0 4px;font-size:clamp(24px,5vw,38px);font-weight:800;letter-spacing:-.5px;background:linear-gradient(90deg,var(--cy),var(--grn));-webkit-background-clip:text;background-clip:text;color:transparent}
+#pf .sub{margin:0 0 18px;opacity:.8;font-size:15px}
+#pf .hide{display:none!important}
+#pf .card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:20px;backdrop-filter:blur(6px)}
+#pf label{display:block;font-size:14px;margin:10px 0 4px;opacity:.85}
+#pf input[type=text]{width:100%;padding:13px 15px;border-radius:14px;border:2px solid rgba(255,255,255,.2);background:rgba(8,12,40,.6);color:#fff;font:inherit;font-size:17px;outline:none}
+#pf input[type=text]:focus{border-color:var(--cy);box-shadow:0 0 0 4px rgba(76,201,255,.25)}
+#pf button{font:inherit;font-weight:600;border:0;border-radius:14px;padding:12px 20px;cursor:pointer;color:#06122e;background:linear-gradient(135deg,var(--cy),var(--grn));transition:transform .15s,filter .15s}
+#pf button:hover{transform:translateY(-2px);filter:brightness(1.1)}
+#pf button:focus-visible{outline:3px solid var(--yl);outline-offset:2px}
+#pf button.sec{background:rgba(255,255,255,.12);color:var(--tx)}
+#pf button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+#pf .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+#pf .game{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:center}
+#pf .ring{position:relative;width:100%;max-width:470px;aspect-ratio:1;margin:auto}
+#pf .ring::before{content:"";position:absolute;inset:9%;border-radius:50%;border:2px dashed rgba(255,255,255,.15)}
+#pf .L{position:absolute;width:10%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:clamp(11px,2.6vw,19px);background:#2a3380;border:2px solid rgba(255,255,255,.3);transition:all .3s}
+#pf .L.p{border-color:var(--yl);color:var(--yl)}
+#pf .L.cur{transform:translate(-50%,-50%) scale(1.3);background:var(--cy);color:#06122e;border-color:#fff;box-shadow:0 0 22px var(--cy);z-index:2}
+#pf .L.ok{background:var(--grn);color:#04281c;border-color:#fff;box-shadow:0 0 16px var(--grn)}
+#pf .L.ko{background:var(--red);color:#fff;border-color:#fff;box-shadow:0 0 16px var(--red)}
+#pf .mid{position:absolute;inset:22%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+#pf .heart{font-size:clamp(28px,7vw,48px);animation:lat 1.1s infinite}
+@keyframes lat{0%,100%{transform:scale(1)}15%{transform:scale(1.2)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+@media (prefers-reduced-motion:reduce){#pf .heart{animation:none}#pf *{transition:none!important}}
+#pf .stats{font-size:clamp(12px,2.6vw,15px);display:flex;gap:10px;margin-top:4px}
+#pf .chip{display:inline-block;background:var(--yl);color:#2a2000;font-weight:800;border-radius:999px;padding:5px 14px;font-size:14px}
+#pf .def{font-size:clamp(17px,3.2vw,22px);margin:14px 0;font-weight:600}
+#pf .fb{margin-top:14px;padding:14px 16px;border-radius:16px;font-size:15px}
+#pf .fb.ok{background:rgba(31,220,154,.18);border:1px solid var(--grn)}
+#pf .fb.ko{background:rgba(255,59,87,.18);border:1px solid var(--red)}
+#pf .fb b{font-size:17px}
+#pf .warn{color:var(--yl);font-size:14px;min-height:20px;margin-top:6px}
+#pf .big{font-size:clamp(46px,10vw,80px);font-weight:800;line-height:1;color:var(--grn)}
+#pf table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}
+#pf th,#pf td{padding:8px 6px;text-align:left;border-bottom:1px solid rgba(255,255,255,.12)}
+#pf tr.me td{background:rgba(255,210,63,.18);font-weight:800}
+#pf .wrap{overflow-x:auto}
+@media (max-width:720px){#pf{padding:14px;border-radius:20px}#pf .game{grid-template-columns:1fr}}
+#pf .opts{display:grid;gap:10px;margin-top:14px}
+#pf button.op{display:flex;align-items:center;gap:12px;text-align:left;background:rgba(255,255,255,.1);color:var(--tx);border:2px solid rgba(255,255,255,.2);font-size:16px;font-weight:600}
+#pf button.op .n{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--cy);color:#06122e;align-items:center;justify-content:center;font-weight:800;flex:none}
+#pf button.op:disabled{opacity:1;cursor:default}
+#pf button.op.dim{opacity:.45}
+#pf button.op.good{background:rgba(31,220,154,.3);border-color:var(--grn)}
+#pf button.op.bad{background:rgba(255,59,87,.3);border-color:var(--red)}
+</style>
+
+<h2>El rosco de los primeros auxilios</h2>
+<p class="sub">4º ESO · Elige la opción correcta en cada una de las 24 letras. ¡Cada acierto cuenta para el ranking!</p>
+
+<!-- INICIO -->
+<div id="pf-start" class="card">
+  <label for="pf-name">Tu nombre</label>
+  <input type="text" id="pf-name" maxlength="30" autocomplete="off">
+  <label for="pf-grp">Tu grupo (por ejemplo, 4º B)</label>
+  <input type="text" id="pf-grp" maxlength="12" autocomplete="off">
+  <div class="warn" id="pf-sw"></div>
+  <div class="row"><button id="pf-go">Empezar el rosco</button><button class="sec" id="pf-rk0">Ver ranking</button></div>
+</div>
+
+<!-- JUEGO -->
+<div id="pf-game" class="game hide">
+  <div class="ring" id="pf-ring"><div class="mid"><div class="heart">❤️</div><div class="stats"><span>✔ <b id="pf-a">0</b></span><span>✖ <b id="pf-f">0</b></span><span>⏱ <b id="pf-t">0:00</b></span></div></div></div>
+  <div class="card">
+    <span class="chip" id="pf-chip"></span>
+    <div class="def" id="pf-def"></div>
+    <div class="opts" id="pf-opts"></div>
+    <div class="row"><button class="sec" id="pf-pass">Pasapalabra</button></div>
+    <div id="pf-fb" class="fb hide"></div>
+    <div class="row hide" id="pf-nx"><button id="pf-next">Siguiente</button></div>
+  </div>
+</div>
+
+<!-- RESULTADO / RANKING -->
+<div id="pf-end" class="card hide">
+  <div id="pf-res"></div>
+  <div class="wrap" id="pf-tab"></div>
+  <div class="row"><button id="pf-again">Jugar de nuevo</button><button class="sec" id="pf-copy">Copiar ranking</button><button class="sec" id="pf-clr">Borrar ranking</button></div>
+</div>
+
+<script>
+(function(){
+var Q=[
+{l:"A",t:"s",d:"Reacción alérgica grave y de aparición rápida que puede comprometer la vida.",a:["anafilaxia","shock anafilactico","anafilactico","anafilaxis"],i:"Puede tratarse con adrenalina autoinyectable mientras llega la ayuda (112)."},
+{l:"B",t:"s",d:"Maleta o caja que contiene el material básico para atender pequeñas lesiones y emergencias.",a:["botiquin"],i:"Debe revisarse con regularidad para reponer lo gastado y retirar lo caducado."},
+{l:"C",t:"s",d:"Lesión producida por un golpe que no rompe la piel y que suele dejar un moratón.",a:["contusion"],i:"Se aplica frío local y reposo; si hay mucho dolor o deformidad, puede haber fractura."},
+{l:"D",t:"s",d:"Siglas del aparato que analiza el ritmo del corazón y, si es necesario, administra una descarga eléctrica.",a:["desa","dea","desfibrilador","desfibrilador externo semiautomatico","desfibrilador semiautomatico"],i:"Desfibrilador Externo Semiautomático: guía con voz y debe usarse junto a la RCP."},
+{l:"E",t:"s",d:"Lesión de los ligamentos de una articulación por una torcedura brusca, típica en el tobillo.",a:["esguince"],i:"Se trata con el método RICE: reposo, hielo, compresión y elevación."},
+{l:"F",t:"s",d:"Rotura total o parcial de un hueso.",a:["fractura"],i:"Hay que inmovilizar la zona tal y como está, sin intentar recolocar el hueso."},
+{l:"G",t:"s",d:"Tejido fino y estéril que se usa para limpiar y cubrir heridas.",a:["gasa","gasas"],i:"Se coloca sobre la herida y se sujeta con esparadrapo o venda."},
+{l:"H",t:"s",d:"Descenso peligroso de la temperatura corporal por debajo de 35 ºC.",a:["hipotermia"],i:"Se retira la ropa mojada, se abriga a la persona y se evita el calor directo intenso."},
+{l:"I",t:"s",d:"Acción de impedir el movimiento de una zona lesionada con férulas, cabestrillos o vendajes.",a:["inmovilizacion","inmovilizar"],i:"Es la medida básica ante fracturas, luxaciones y esguinces graves."},
+{l:"J",t:"c",d:"Instrumento de corte del botiquín que sirve para cortar vendas, gasas y ropa.",a:["tijeras","tijera"],i:"Mejor si tienen la punta roma para no dañar la piel."},
+{l:"L",t:"s",d:"Lesión en la que un hueso se sale de su articulación.",a:["luxacion"],i:"No se debe intentar recolocar: se inmoviliza y se traslada a un centro sanitario."},
+{l:"M",t:"s",d:"Técnica de compresiones abdominales para desobstruir las vías respiratorias en un atragantamiento.",a:["maniobra de heimlich","maniobra heimlich","heimlich"],i:"Se aplica cuando la persona está consciente y no puede toser, hablar ni respirar."},
+{l:"N",t:"s",d:"Estado de alerta de una persona; se valora comprobando si responde a la voz y al tacto.",a:["nivel de conciencia","nivel conciencia","conciencia"],i:"Es el primer paso de la valoración: ¿responde? ¿respira?"},
+{l:"O",t:"s",d:"Siglas de la obstrucción de la vía aérea por un cuerpo extraño (atragantamiento).",a:["ovace"],i:"Obstrucción de la Vía Aérea por Cuerpo Extraño."},
+{l:"P",t:"s",d:"Siglas de la conducta de actuación en tres pasos: Proteger, Avisar y Socorrer.",a:["pas"],i:"Primero se protege la zona, luego se llama al 112 y después se socorre."},
+{l:"Q",t:"s",d:"Lesión en la piel que se produce al contactar con superficies a alta temperatura, líquidos calientes o fuego.",a:["quemadura","quemaduras"],i:"Se enfría con agua templada o fresca durante al menos 10 minutos y no se revientan las ampollas."},
+{l:"R",t:"s",d:"Conjunto de compresiones torácicas y ventilaciones para una persona que no responde ni respira con normalidad.",a:["rcp","reanimacion cardiopulmonar","reanimacion cardio pulmonar"],i:"Reanimación cardiopulmonar: 30 compresiones y 2 ventilaciones."},
+{l:"S",t:"s",d:"Siglas del conjunto de maniobras que mantienen las funciones vitales hasta que llegue la ayuda sanitaria.",a:["svb","soporte vital basico"],i:"Soporte Vital Básico: incluye la valoración, la RCP y el uso del DESA."},
+{l:"T",t:"s",d:"Clasificación de varias víctimas según la gravedad para decidir a quién atender primero.",a:["triaje","triage"],i:"Se usa en accidentes con múltiples heridos."},
+{l:"U",t:"s",d:"Servicio del hospital que atiende a los pacientes que necesitan asistencia inmediata.",a:["urgencias","urgencia"],i:"Se acude a él ante una emergencia, o tras avisar al 112 para que acuda una ambulancia."},
+{l:"V",t:"s",d:"Banda de tela que sujeta un apósito o inmoviliza una zona del cuerpo.",a:["vendaje","venda"],i:"No debe apretar tanto que corte la circulación de la sangre."},
+{l:"X",t:"c",d:"Falta de oxígeno en el organismo, por ejemplo por una obstrucción de la vía aérea.",a:["asfixia"],i:"Puede provocar pérdida de conocimiento en pocos minutos."},
+{l:"Y",t:"s",d:"Antiséptico de color pardo o marrón que se usa para desinfectar la piel.",a:["yodo","povidona yodada","betadine"],i:"Se aplica en la piel alrededor de la herida; no se usa en heridas grandes sin consejo sanitario."},
+{l:"Z",t:"c",d:"Órgano muscular que bombea la sangre por todo el cuerpo.",a:["corazon"],i:"Si se para, se inicia la RCP y se usa el DESA."}
+];
+var O={
+A:["Anafilaxia","Angina de pecho","Anemia","Apnea"],
+B:["Botiquín","Camilla","Mascarilla","Ambulancia"],
+C:["Contusión","Convulsión","Congelación","Contractura"],
+D:["DESA","EPOC","TAC","UVI"],
+E:["Esguince","Calambre","Hernia","Edema"],
+F:["Fractura","Fiebre","Fístula","Flebitis"],
+G:["Gasa","Esparadrapo","Suero","Pinzas"],
+H:["Hipotermia","Hipertermia","Hipoglucemia","Hipotensión"],
+I:["Inmovilización","Intubación","Inyección","Inhalación"],
+J:["Tijeras","Jeringuilla","Pinzas","Termómetro"],
+L:["Luxación","Laceración","Lipotimia","Lesión medular"],
+M:["Maniobra de Heimlich","Maniobra de Rautek","Maniobra frente-mentón","Masaje cardíaco"],
+N:["Nivel de conciencia","Nivel de glucosa","Nivel de saturación","Nivel de colesterol"],
+O:["OVACE","OMS","ORL","OACI"],
+P:["PAS","PLS","PCR","PAE"],
+Q:["Quemadura","Queratitis","Quiste","Quimioterapia"],
+R:["RCP","RMN","RTC","RAE"],
+S:["SVB","SVA","SUH","SAE"],
+T:["Triaje","Taquicardia","Torniquete","Traslado"],
+U:["Urgencias","UCI","Urología","Ubicación"],
+V:["Vendaje","Vacuna","Vómito","Ventilación"],
+X:["Asfixia","Epistaxis","Extrasístole","Flexión"],
+Y:["Yodo","Yeso","Yugular","Yersinia"],
+Z:["Corazón","Brazo","Cabeza","Nariz"]
+};
+var K="pf_rosco_ranking_v1",mem=[],$=function(i){return document.getElementById("pf-"+i)};
+var st,cur,tm,t0,name,grp,locked;
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return"&#"+c.charCodeAt(0)+";"})}
+function norm(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim()}
+function lev(a,b){var m=[],i,j;for(i=0;i<=a.length;i++){m[i]=[i]}for(j=0;j<=b.length;j++){m[0][j]=j}
+for(i=1;i<=a.length;i++){for(j=1;j<=b.length;j++){m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(a[i-1]==b[j-1]?0:1))}}return m[a.length][b.length]}
+function check(v,q){var n=norm(v);if(!n)return false;return q.a.some(function(x){x=norm(x);return n===x||(x.length>=6&&lev(n,x)<=1)})}
+function load(){try{return JSON.parse(localStorage.getItem(K)||"[]")}catch(e){return mem}}
+function save(a){mem=a;try{localStorage.setItem(K,JSON.stringify(a))}catch(e){}}
+function fmt(s){return Math.floor(s/60)+":"+("0"+(s%60)).slice(-2)}
+function show(id){["start","game","end"].forEach(function(x){$(x).classList.toggle("hide",x!=id)})}
+
+function build(){var r=$("ring");r.querySelectorAll(".L").forEach(function(e){e.remove()});
+Q.forEach(function(q,i){var a=(-90+i*360/Q.length)*Math.PI/180,d=document.createElement("div");
+d.className="L";d.id="pf-L"+i;d.textContent=q.l;d.style.left=(50+43*Math.cos(a))+"%";d.style.top=(50+43*Math.sin(a))+"%";r.appendChild(d)})}
+function cls(i){var e=$("L"+i);e.className="L"+(st[i]==1?" ok":st[i]==2?" ko":(st[i]==3?" p":""))+(i==cur?" cur":"")}
+function counts(){var a=0,f=0;st.forEach(function(x){if(x==1)a++;if(x==2)f++});$("a").textContent=a;$("f").textContent=f;return[a,f]}
+function nextIdx(from){for(var k=1;k<=Q.length;k++){var j=(from+k)%Q.length;if(st[j]===0||st[j]===3)return j}return -1}
+function pending(){return st.filter(function(x){return x===0||x===3}).length}
+
+function start(){name=$("name").value.trim();grp=$("grp").value.trim();
+if(!name){$("sw").textContent="Escribe tu nombre para empezar.";return}
+$("sw").textContent="";st=Q.map(function(){return 0});build();counts();t0=Date.now();$("t").textContent="0:00";
+clearInterval(tm);tm=setInterval(function(){$("t").textContent=fmt(Math.floor((Date.now()-t0)/1000))},1000);
+show("game");cur=-1;go(nextIdx(-1))}
+function go(i){if(i<0){return finish()}var o=cur;cur=i;if(o>=0)cls(o);cls(i);locked=false;
+var q=Q[i];$("chip").textContent=(q.t=="s"?"Empieza por ":"Contiene la ")+q.l;$("def").textContent=q.d;
+var ops=O[q.l].map(function(t,k){return{t:t,c:k===0}}),j,x,y;
+for(j=ops.length-1;j>0;j--){x=Math.floor(Math.random()*(j+1));y=ops[j];ops[j]=ops[x];ops[x]=y}
+var h="";ops.forEach(function(p,k){h+='<button class="op" data-c="'+(p.c?1:0)+'"><span class="n">'+(k+1)+'</span>'+esc(p.t)+'</button>'});
+$("opts").innerHTML=h;$("fb").classList.add("hide");$("nx").classList.add("hide");$("pass").disabled=pending()<2}
+function answer(b){if(locked)return;locked=true;var q=Q[cur],good=b.getAttribute("data-c")=="1";st[cur]=good?1:2;cls(cur);counts();
+var bs=$("opts").querySelectorAll("button");
+for(var k=0;k<bs.length;k++){var e=bs[k];e.disabled=true;if(e.getAttribute("data-c")=="1")e.classList.add("good");else if(e===b)e.classList.add("bad");else e.classList.add("dim")}
+var f=$("fb");f.className="fb "+(good?"ok":"ko");
+f.innerHTML=good?"<b>¡Correcto!</b> "+esc(O[q.l][0])+".<br>"+esc(q.i):"<b>Fallaste.</b> La respuesta correcta era: <b>"+esc(O[q.l][0].toUpperCase())+"</b>.<br>"+esc(q.i);
+$("pass").disabled=true;$("nx").classList.remove("hide");$("next").focus()}
+function pass(){if(locked||pending()<2)return;st[cur]=3;var o=cur;go(nextIdx(cur));cls(o)}
+function next(){go(nextIdx(cur))}
+
+function rank(){return load().sort(function(a,b){return b.a-a.a||a.s-b.s})}
+function level(a){return a>=22?"🏆 Salvavidas experto":a>=18?"🥇 Socorrista":a>=13?"🥈 Aprendiz de socorrista":a>=8?"🥉 En formación":"📘 A repasar"}
+function table(id){var l=rank(),h="<table><tr><th>#</th><th>Alumno</th><th>Grupo</th><th>Aciertos</th><th>Tiempo</th><th>Nivel</th></tr>";
+l.slice(0,20).forEach(function(e,i){h+="<tr"+(e.id==id?' class="me"':"")+"><td>"+(i+1)+"</td><td>"+esc(e.n)+"</td><td>"+esc(e.g||"-")+"</td><td>"+e.a+"/"+Q.length+"</td><td>"+fmt(e.s)+"</td><td>"+level(e.a)+"</td></tr>"});
+return l.length?h+"</table>":"<p>Todavía no hay resultados. ¡Sé el primero!</p>"}
+function finish(){clearInterval(tm);var c=counts(),s=Math.floor((Date.now()-t0)/1000),id=Date.now(),l=load();
+l.push({id:id,n:name,g:grp,a:c[0],f:c[1],s:s});save(l);var pos=rank().findIndex(function(e){return e.id==id})+1;
+$("res").innerHTML='<div class="big">'+c[0]+'/'+Q.length+'</div><h3 style="margin:8px 0">'+esc(name)+", "+level(c[0])+"</h3><p>Fallos: "+c[1]+" · Tiempo: "+fmt(s)+" · Puesto "+pos+" de "+l.length+"</p>";
+$("tab").innerHTML=table(id);show("end")}
+function viewRank(){$("res").innerHTML="<h3 style='margin:0'>Ranking de la clase</h3>";$("tab").innerHTML=table(0);show("end")}
+function copy(){var t=rank().map(function(e,i){return(i+1)+". "+e.n+" ("+(e.g||"-")+") - "+e.a+"/"+Q.length+" - "+fmt(e.s)}).join("\n");
+if(navigator.clipboard){navigator.clipboard.writeText(t)}$("copy").textContent="¡Copiado!";setTimeout(function(){$("copy").textContent="Copiar ranking"},1500)}
+function clr(){if(confirm("¿Seguro que quieres borrar todo el ranking de este navegador?")){save([]);viewRank()}}
+
+$("go").onclick=start;$("rk0").onclick=viewRank;$("opts").onclick=function(e){var b=e.target.closest?e.target.closest("button.op"):null;if(b)answer(b)};$("pass").onclick=pass;$("next").onclick=next;
+$("again").onclick=function(){$("name").value="";show("start")};$("copy").onclick=copy;$("clr").onclick=clr;
+$("name").onkeydown=$("grp").onkeydown=function(e){if(e.key=="Enter")start()};
+document.addEventListener("keydown",function(e){if($("game").classList.contains("hide"))return;if(!locked&&e.key>="1"&&e.key<="4"){var bs=$("opts").querySelectorAll("button");var t=bs[+e.key-1];if(t)answer(t)}else if(e.key=="Enter"&&locked&&document.activeElement!==$("next")){next()}});
+})();
+</script>
+</div>
